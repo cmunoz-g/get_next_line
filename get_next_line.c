@@ -60,8 +60,6 @@ char	*get_next_line(int fd)
 	if (!line)
 		return (NULL);
 	line = ft_read(fd, buffer, line);
-	if (!line)
-		return (NULL);
 	return (line);
 }
 
