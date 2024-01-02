@@ -95,24 +95,16 @@ char	*ft_strjoin(char const *s1, char const *s2)
 char    *ft_findnl(char *str)
 {
 	char	*new_line;
-	char	*cpy;
 	size_t	i;
 
 	i = 0;
-	cpy = str;
-	while (*cpy && *cpy != '\n')
-	{
+	while (str[i] && str[i] != '\n')
 		i++;
-		cpy++;	
-	}
-	if (!(*cpy))
+	if (str[i] != '\n')
 		return (NULL);
-	else
-	{
-		new_line = (char *)malloc(i + 1);
-		if (!new_line)
-			return (NULL);
-		ft_strlcpy(new_line, cpy, (i + 1));
-	}
+	new_line = (char *)malloc(i + 1);
+	if (!new_line)
+		return (NULL);
+	ft_strlcpy(new_line, str, (i + 1));
 	return (new_line);
 }

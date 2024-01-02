@@ -3,6 +3,7 @@
 char	 *ft_read(int fd, char *buffer, char *line)
 {
 	char	*temp;
+	char	*rest;
 	char	*line_rd;
 	ssize_t	bytes_rd;
 
@@ -22,7 +23,9 @@ char	 *ft_read(int fd, char *buffer, char *line)
    				free(line); 
    				line = temp;
 			}
+			rest = buffer + ft_strlen(line_rd);
 			free(line_rd);
+    		ft_strlcpy(buffer, rest, BUFFER_SIZE);
 			return (line);
 		}
 		else
