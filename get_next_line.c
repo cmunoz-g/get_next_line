@@ -50,7 +50,6 @@ char	*ft_read(int fd, char *long_line)
 {
 	char	*buffer;
 	ssize_t	bytes_rd;
-	char	*temp;
 
 	buffer = (char *)malloc(BUFFER_SIZE + 1);
 	if (!buffer)
@@ -69,15 +68,10 @@ char	*ft_read(int fd, char *long_line)
 			free(buffer);
 			return (long_line);
 		}
-		temp = ft_strjoin(long_line, buffer); //antes de usar temp estaba solo else / long_line = ft_strjoin...
-        if (long_line)
-            free(long_line); 
-        long_line = temp; 
-        if (!long_line) 
-        {
-            free(buffer);
-            return (NULL);
-        }
+		if (!long_line)
+			long_line = ft_strdup(buffer);
+		else
+			long_line = ft_strjoin(long_line, buffer);       
 	}
 	free(buffer);
 	return (long_line);
