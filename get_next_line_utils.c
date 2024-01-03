@@ -63,7 +63,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (s3);	
 }
 
-size_t ft_findnl(char *str)
+size_t  ft_findnl(char *str)
 {
 	char	*new_line;
 	size_t	i;
