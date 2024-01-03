@@ -16,7 +16,7 @@ char	*ft_buffer(char *long_line, size_t len)
 	}
 	while ((i + len) < ll_size)
 	{
-		buffer[i] = long_line[i + len];
+		buffer[i] = long_line[i + len + 1];
 		i++;
 	}
 	buffer[i] = '\0';\
@@ -29,12 +29,18 @@ void	ft_linefill(char *long_line, char **line, ssize_t *len)
 	size_t	i;
 
 	i = 0;
+	if (!(*long_line)) // revisar como hacer que pare esto
+	{
+		line = NULL;
+		return;
+	}
 	*len = ft_findnl(long_line);
+	printf("%zu\n",*len);
 	*line = (char *)malloc(*len + 1);
 	if (!*line)
 	{
 		free(long_line);
-		return ;
+		return;
 	}
 	while (long_line[i] && long_line[i] != '\n')
 	{
@@ -54,7 +60,7 @@ char	*ft_read(int fd, char *long_line)
 	buffer = (char *)malloc(BUFFER_SIZE + 1);
 	if (!buffer)
 		return (NULL);
-	while (!ft_strchr(long_line, '\n'))
+	while (!ft_strchr(buffer, '\n'))
 	{
 		bytes_rd = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_rd == -1)
@@ -77,12 +83,15 @@ char	*ft_read(int fd, char *long_line)
 	return (long_line);
 }
 
-
 char	*get_next_line(int fd)
 {
 	static char *long_line = NULL;
+	static int a = 1;
 	char		*line;
 	size_t		len;
+
+	printf("Esta es la vuelta %d\n", a);
+	a++;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
@@ -107,12 +116,11 @@ int	main(void)
 	char *line;
 
  	line = get_next_line(fd);
-	if (line)
+	while (line)
 	{
 		printf("%s", line);	
 		free(line);
+		line = get_next_line(fd);
 	}
-	else
-		printf("null\n");
 	return (0);
 }
