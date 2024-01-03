@@ -21,6 +21,8 @@ char	*ft_buffer(char *long_line, size_t len)
 	}
 	buffer[i] = '\0';\
 	free(long_line);
+	if (!(*buffer)) 
+		return (NULL);
 	return (buffer);
 }
 
@@ -29,13 +31,7 @@ void	ft_linefill(char *long_line, char **line, ssize_t *len)
 	size_t	i;
 
 	i = 0;
-	if (!(*long_line)) // revisar como hacer que pare esto
-	{
-		line = NULL;
-		return;
-	}
 	*len = ft_findnl(long_line);
-	printf("%zu\n",*len);
 	*line = (char *)malloc(*len + 1);
 	if (!*line)
 	{
@@ -86,27 +82,18 @@ char	*ft_read(int fd, char *long_line)
 char	*get_next_line(int fd)
 {
 	static char *long_line = NULL;
-	static int a = 1;
 	char		*line;
 	size_t		len;
 
-	printf("Esta es la vuelta %d\n", a);
-	a++;
-
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	long_line = ft_read(fd, long_line); //funcion para guardar informacion en la str hasta que haya un salto de linea o se llegue a 0 en read.
+	long_line = ft_read(fd, long_line); //ft para guardar datos del archivo hasta que haya un salto de linea o se llegue a 0 en read
 	if (!long_line)
 		return (NULL);
 	ft_linefill(long_line, &line, &len); //ft para rellenar la linea
 	if (!line)
 		return (NULL);
-	long_line = ft_buffer(long_line, len); //ft para dejar el buffer bien (moverlo hasta despues del salto de linea)
-	if (!long_line)
-	{
-		free(line);
-		return (NULL);
-	}
+	long_line = ft_buffer(long_line, len); //ft para que el resto del buffer comience tras el salto de linea
 	return (line);
 }
 
