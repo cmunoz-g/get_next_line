@@ -1,34 +1,5 @@
 #include "get_next_line.h"
 
-void	*ft_calloc(size_t nmemb, size_t size)
-{
-	void	*res;
-	size_t	totalsize;
-
-	totalsize = nmemb * size;
-	if (nmemb != 0 && totalsize / nmemb != size)
-		return (NULL);
-	res = malloc(totalsize);
-	if (res == NULL)
-		return (NULL);
-	ft_memset(res, 0, totalsize);
-	return (res);
-}
-
-void    *ft_memset(void *str, int c, size_t n)
-{
-    unsigned char *cpy;
-
-    cpy = str;
-    while (n > 0)
-    {
-        *cpy = (unsigned char)c;
-        cpy++;
-        n--;
-    }
-    return (str);
-}
-
 size_t ft_strlen(const char *str)
 {
     size_t i;
@@ -92,7 +63,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (s3);	
 }
 
-char    *ft_findnl(char *str)
+size_t ft_findnl(char *str)
 {
 	char	*new_line;
 	size_t	i;
@@ -100,11 +71,21 @@ char    *ft_findnl(char *str)
 	i = 0;
 	while (str[i] && str[i] != '\n')
 		i++;
-	if (str[i] != '\n')
-		return (NULL);
-	new_line = (char *)malloc(i + 1);
-	if (!new_line)
-		return (NULL);
-	ft_strlcpy(new_line, str, (i + 1));
-	return (new_line);
+    return (i);
+}
+
+char    *ft_strchr(const char *str, int c)
+{
+    char    ch;
+
+    ch = (char)c;
+    while (*str != '\0')
+    {
+        if (*str == ch)
+            return ((char *)str);
+        str++;
+    }
+    if (ch == '\0')
+        return ((char *)str);
+    return (0);
 }

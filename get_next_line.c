@@ -1,88 +1,91 @@
 #include "get_next_line.h"
 
-void	ft_getbuff(char *buffer, char *line)
+char	*ft_buffer(char *long_line, size_t len)
 {
-	char	*temp;
-	char	*rest;
-
-	temp = ft_findnl(buffer);
-	if (!temp)
+	char	*buffer;
+	size_t	ll_size;
+	size_t	i;
+	
+	i = 0;
+	ll_size = ft_strlen(long_line);
+	buffer = (char *)malloc((ll_size - len) + 1);
+	if (!buffer)
+		return (NULL);
+	while ((i + len) < ll_size)
 	{
-		ft_strlcpy(line, buffer, BUFFER_SIZE);
-		rest = buffer + BUFFER_SIZE;
-		ft_strlcpy(buffer, rest, BUFFER_SIZE);
+		buffer[i] = long_line[i + len];
+		i++;
 	}
-	else
-	{
-		line = ft_strjoin(line, temp);
-		rest = buffer + ft_strlen(temp);
-		ft_strlcpy(buffer, rest, BUFFER_SIZE);
-	}
+	buffer[i] = '\0';
+	return (buffer);
 }
 
-char	 *ft_read(int fd, char *buffer, char *line)
+void	ft_linefill(char *long_line, char **line, ssize_t *len)
 {
-	char	*temp;
-	char	*rest;
-	char	*line_rd;
+	size_t	i;
+
+	i = 0;
+	*len = ft_findnl(long_line);
+	*line = (char *)malloc(*len + 1);
+	if (!*line)
+		return ;
+	while (long_line[i] && long_line[i] != '\n')
+	{
+		*line[i] = long_line[i];
+		i++;
+	}
+	if (long_line[i] == '\n')
+		*line[i++] = '\n';
+	*line[i] = '\0';
+}
+
+char	*ft_read(int fd, char *long_line)
+{
+	char	*buffer;
 	ssize_t	bytes_rd;
 
-	if (*buffer)
-		ft_getbuff(buffer, line); 
-	bytes_rd = 1;
-	while (bytes_rd > 0)
+	buffer = (char *)malloc(BUFFER_SIZE + 1);
+	if (!buffer)
+		return (NULL);
+	while (!ft_strchr(long_line, 10))
 	{
 		bytes_rd = read(fd, buffer, BUFFER_SIZE);
-		if (bytes_rd < 0) 
+		if (bytes_rd == -1)
 		{
-    		free(line);
-    		return (NULL);
+			free(buffer);
+			return (NULL);
 		}
 		buffer[bytes_rd] = '\0';
-		line_rd = ft_findnl(buffer);  //estaria bien gestionar el error de malloc en findnl de otra forma
-		if (line_rd)
+		else if (bytes_rd = 0)
 		{
-			temp = ft_strjoin(line, line_rd);
-			if (temp != NULL) 
-			{
-   				free(line); 
-   				line = temp;
-			}
-			rest = buffer + ft_strlen(line_rd);
-			free(line_rd);
-    		ft_strlcpy(buffer, rest, BUFFER_SIZE);
-			return (line);
+			free(buffer);
+			return (long_line);
 		}
 		else
-		{
-			temp = ft_strjoin(line, buffer);
-			if (temp != NULL) 
-			{
-   				free(line); 
-   				line = temp;
-			}
-		}
+			ft_strjoin(long_line, buffer);
 	}
-	return (line);
+	free(buffer);
+	return (long_line);
 }
+
 
 char	*get_next_line(int fd)
 {
-	static char *buffer = NULL;
+	static char *long_line = NULL;
 	char		*line;
+	size_t		len;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (!buffer)
-	{
-		buffer = (char *)ft_calloc((BUFFER_SIZE + 1), 1);
-		if (!buffer)
-			return (NULL);
-	}
-	line = (char *)malloc(BUFFER_SIZE + 1);
+	long_line = ft_read(fd, long_line); //funcion para guardar informacion en la str hasta que haya un salto de linea o se llegue a 0 en read.
+	if (!long_line)
+		return (NULL);
+	ft_linefill(long_line, &line, &len); //ft para rellenar la linea
 	if (!line)
 		return (NULL);
-	line = ft_read(fd, buffer, line);
+	long_line = ft_buffer(long_line, len); //ft para dejar el buffer bien (moverlo hasta despues del salto de linea)
+	if (!long_line)
+		return (NULL);
 	return (line);
 }
 
@@ -90,15 +93,9 @@ int	main(void)
 {
 	int fd = open("file", O_RDONLY);
 	char *line;
-	int i = 0;
 
-	while (i != 3)
-	{
- 		line = get_next_line(fd);
-		i++;
-		printf("%s", line);
-	}
-	if (!line)
-		printf("null\n");	
+ 	line = get_next_line(fd);
+	printf("%s", line);	
+	free(line);
 	return (0);
 }
