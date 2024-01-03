@@ -26,7 +26,7 @@ char	*ft_buffer(char *long_line, size_t len)
 	return (buffer);
 }
 
-void	ft_linefill(char *long_line, char **line, ssize_t *len)
+void	ft_linefill(char *long_line, char **line, size_t *len)
 {
 	size_t	i;
 
