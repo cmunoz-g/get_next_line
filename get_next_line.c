@@ -97,7 +97,7 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-int	main(void)
+/*int	main(void)
 {
 	int fd = open("file", O_RDONLY);
 	char *line;
@@ -110,4 +110,4 @@ int	main(void)
 		line = get_next_line(fd);
 	}
 	return (0);
-}
+}*/
