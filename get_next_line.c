@@ -108,7 +108,7 @@ void	leaks(void)
 {
 	system("leaks a.out");
 }
-
+//BUSCAR LEAKS, IR PONIENDO EXITS
 int	main(void)
 {
 	int fd = open("file", O_RDONLY);
