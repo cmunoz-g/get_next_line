@@ -78,6 +78,8 @@ char    *ft_strchr(const char *str, int c)
     char    ch;
 
     ch = (char)c;
+    if (!str)
+        return (NULL);
     while (*str != '\0')
     {
         if (*str == ch)
