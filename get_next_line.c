@@ -84,6 +84,9 @@ char	*get_next_line(int fd)
 	static char *long_line = NULL;
 	char		*line;
 	size_t		len;
+	static int	a = 0;
+
+	a++;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
@@ -94,20 +97,22 @@ char	*get_next_line(int fd)
 	if (!line)
 		return (NULL);
 	long_line = ft_buffer(long_line, len); //ft para que el resto del buffer comience tras el salto de linea
+	//printf("buffer numero %d: %s\n",a, long_line);
 	return (line);
 }
 
 /*int	main(void)
 {
-	int fd = open("file", O_RDONLY);
+	int fd = open("variable_nls.txt", O_RDONLY);
 	char *line;
 
  	line = get_next_line(fd);
 	while (line)
 	{
-		printf("%s", line);	
+		printf("line: %s", line);	
 		free(line);
 		line = get_next_line(fd);
 	}
+	//printf("\n");
 	return (0);
 }*/
