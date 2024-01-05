@@ -58,13 +58,13 @@ char	*ft_read(int fd, char *long_line)
 		return (NULL);
 	while (!ft_strchr(long_line, '\n'))
 	{
-		bytes_rd = read(fd, buffer, BUFFER_SIZE);
-		buffer[bytes_rd] = '\0';
+		bytes_rd = read(fd, buffer, BUFFER_SIZE);\
 		if (bytes_rd == -1)
 		{
 			free(buffer);
 			return (NULL);
 		}
+		buffer[bytes_rd] = '\0';
 		if (bytes_rd == 0)
 		{
 			free(buffer);
@@ -96,8 +96,11 @@ char	*get_next_line(int fd)
 		free(line);
 		return (NULL);
 	}
-	long_line = ft_buffer(long_line, len); //ft para que el resto del buffer comience tras el salto de linea
-	return (line);
+	else
+	{
+		long_line = ft_buffer(long_line, len); //ft para que el resto del buffer comience tras el salto de linea
+		return (line);
+	}
 }
 
 /*void	leaks(void)
