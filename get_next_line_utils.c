@@ -60,6 +60,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		return (NULL);
 	ft_strlcpy(s3, s1, ft_strlen(s1));
 	ft_strlcat(s3, s2, s3size);
+    free((void *)s1);
 	return (s3);	
 }
 
