@@ -6,7 +6,7 @@
 /*   By: cmunoz-g <cmunoz-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:07:01 by cmunoz-g          #+#    #+#             */
-/*   Updated: 2024/01/09 14:12:04 by cmunoz-g         ###   ########.fr       */
+/*   Updated: 2024/01/09 14:30:29 by cmunoz-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ char	*get_next_line(int fd)
 	system("leaks a.out");
 }*/
 
-/*int	main(void)
+int	main(void)
 {
 	int fd = open("file", O_RDONLY);
 	char *line;
@@ -123,4 +123,7 @@ char	*get_next_line(int fd)
 	}
 	//printf("\n");
 	return (0);
-}*/
+}
+
+
+// arreglar la fila vacia entre medias y comprobar si una vacia al final jode el programa
