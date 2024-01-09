@@ -6,7 +6,7 @@
 /*   By: cmunoz-g <cmunoz-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:12:41 by cmunoz-g          #+#    #+#             */
-/*   Updated: 2024/01/09 14:22:49 by cmunoz-g         ###   ########.fr       */
+/*   Updated: 2024/01/09 17:38:30 by cmunoz-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		return (NULL);
 	ft_strlcpy(s3, s1, ft_strlen(s1));
 	ft_strlcat(s3, s2, s3size);
-	free((void *)s1);
+	//free((void *)s1);
 	return (s3);
 }
 
@@ -83,7 +83,7 @@ size_t	ft_findnl(char *str)
 	i = 0;
 	while (str[i] && str[i] != '\n')
 		i++;
-	return (i);
+	return (++i);
 }
 
 char	*ft_strchr(const char *str, int c)
