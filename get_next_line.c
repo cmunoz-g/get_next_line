@@ -6,7 +6,7 @@
 /*   By: cmunoz-g <cmunoz-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 16:45:38 by cmunoz-g          #+#    #+#             */
-/*   Updated: 2024/01/09 17:50:22 by cmunoz-g         ###   ########.fr       */
+/*   Updated: 2024/01/09 17:51:27 by cmunoz-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char	*get_next_line(int fd)
 {
 	system("leaks a.out");
 }*/
-/*int	main(void)
+int	main(void)
 {
 	int fd = open("file", O_RDONLY);
 	char *line;
@@ -115,4 +115,4 @@ char	*get_next_line(int fd)
 		i++;
 	}
 	return (0);
-}*/
+}
