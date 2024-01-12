@@ -6,7 +6,7 @@
 /*   By: cmunoz-g <cmunoz-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:32:43 by cmunoz-g          #+#    #+#             */
-/*   Updated: 2024/01/12 12:33:43 by cmunoz-g         ###   ########.fr       */
+/*   Updated: 2024/01/12 13:15:27 by cmunoz-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,10 @@
 # include <unistd.h>
 # include <fcntl.h>
 
-size_t	ft_findnl(char *str);
 char	*ft_strchr(const char *str, int c);
 char	*ft_strdup(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlcat(char *dest, const char *src, size_t destsize);
-size_t	ft_strlcpy(char *dest, const char *src, size_t size);
 size_t	ft_strlen(const char *str);
 
 char	*get_next_line(int fd);

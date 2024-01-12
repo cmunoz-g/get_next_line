@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmunoz-g <cmunoz-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 16:45:38 by cmunoz-g          #+#    #+#             */
-/*   Updated: 2024/01/12 13:07:34 by cmunoz-g         ###   ########.fr       */
+/*   Updated: 2024/01/12 14:26:45 by cmunoz-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 void	auxfill(size_t len, size_t llsize, char *buff, char *long_line)
 {
@@ -101,7 +101,7 @@ char	*ft_read(int fd, char *long_line, char *buffer)
 
 char	*get_next_line(int fd)
 {
-	static char	*long_line = NULL;
+	static char	*long_line[U_LIMIT];
 	char		*line;
 	char		*buffer;
 
@@ -110,9 +110,9 @@ char	*get_next_line(int fd)
 	buffer = (char *)malloc(BUFFER_SIZE + 1);
 	if (!buffer)
 		return (NULL);
-	long_line = ft_read(fd, long_line, buffer);
-	line = ft_linefill(long_line);
-	long_line = restline(long_line, line);
+	long_line[fd] = ft_read(fd, long_line[fd], buffer);
+	line = ft_linefill(long_line[fd]);
+	long_line[fd] = restline(long_line[fd], line);
 	return (line);
 }
 
