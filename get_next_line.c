@@ -6,7 +6,7 @@
 /*   By: cmunoz-g <cmunoz-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 16:45:38 by cmunoz-g          #+#    #+#             */
-/*   Updated: 2024/01/12 12:49:11 by cmunoz-g         ###   ########.fr       */
+/*   Updated: 2024/01/12 12:50:12 by cmunoz-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,7 @@ char	*restline(char *long_line, char *line)
 	llsize = ft_strlen(long_line);
 	buff = (char *)malloc((llsize - len) + 1);
 	if (!buff)
-	{
-		free(long_line);
 		return (NULL);
-	}
 	while (len < llsize && long_line[len])
 	{
 		buff[i] = long_line[len];
@@ -71,7 +68,7 @@ char	*ft_linefill(char *long_line)
 char	*ft_read(int fd, char *long_line, char *buffer)
 {
 	ssize_t	bytes_rd;
-	
+
 	while (!ft_strchr(long_line, '\n'))
 	{
 		bytes_rd = read(fd, buffer, BUFFER_SIZE);
