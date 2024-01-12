@@ -6,7 +6,7 @@
 /*   By: cmunoz-g <cmunoz-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 16:45:38 by cmunoz-g          #+#    #+#             */
-/*   Updated: 2024/01/12 12:45:00 by cmunoz-g         ###   ########.fr       */
+/*   Updated: 2024/01/12 12:49:11 by cmunoz-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,10 @@ char	*ft_linefill(char *long_line)
 	return (line);
 }
 
-char	*ft_read(int fd, char *long_line)
+char	*ft_read(int fd, char *long_line, char *buffer)
 {
-	char	*buffer;
 	ssize_t	bytes_rd;
-
-	buffer = (char *)malloc(BUFFER_SIZE + 1);
-	if (!buffer)
-		return (NULL);
+	
 	while (!ft_strchr(long_line, '\n'))
 	{
 		bytes_rd = read(fd, buffer, BUFFER_SIZE);
@@ -104,10 +100,14 @@ char	*get_next_line(int fd)
 {
 	static char	*long_line = NULL;
 	char		*line;
+	char		*buffer;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	long_line = ft_read(fd, long_line);
+	buffer = (char *)malloc(BUFFER_SIZE + 1);
+	if (!buffer)
+		return (NULL);
+	long_line = ft_read(fd, long_line, buffer);
 	line = ft_linefill(long_line);
 	long_line = restline(long_line, line);
 	return (line);
