@@ -6,21 +6,11 @@
 /*   By: cmunoz-g <cmunoz-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:12:41 by cmunoz-g          #+#    #+#             */
-/*   Updated: 2024/01/09 19:18:16 by cmunoz-g         ###   ########.fr       */
+/*   Updated: 2024/01/12 12:42:19 by cmunoz-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-size_t	ft_strlen(const char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
 
 size_t	ft_strlcat(char *dest, const char *src, size_t destsize)
 {
@@ -60,7 +50,6 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 		}
 		dest[i] = '\0';
 	}
-	//free((void *)src);
 	return (ret);
 }
 
@@ -79,16 +68,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (s3);
 }
 
-size_t	ft_findnl(char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i] && str[i] != '\n')
-		i++;
-	return (++i);
-}
-
 char	*ft_strchr(const char *str, int c)
 {
 	char	ch;
@@ -105,6 +84,16 @@ char	*ft_strchr(const char *str, int c)
 	if (ch == '\0')
 		return ((char *)str);
 	return (0);
+}
+
+size_t	ft_strlen(const char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }
 
 char	*ft_strdup(const char *s)

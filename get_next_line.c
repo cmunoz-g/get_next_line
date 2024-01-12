@@ -6,21 +6,24 @@
 /*   By: cmunoz-g <cmunoz-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 16:45:38 by cmunoz-g          #+#    #+#             */
-/*   Updated: 2024/01/12 11:45:45 by cmunoz-g         ###   ########.fr       */
+/*   Updated: 2024/01/12 12:45:00 by cmunoz-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*restline(char *long_line, size_t len)
+char	*restline(char *long_line, char *line)
 {
-	char 	*buff;
+	char	*buff;
 	size_t	llsize;
 	size_t	i;
+	size_t	len;
+
 	i = 0;
 	if (!long_line)
 		return (NULL);
-	if (!long_line[len - 1])
+	len = ft_strlen(line);
+	if (!long_line[len])
 	{
 		free(long_line);
 		return (NULL);
@@ -28,19 +31,22 @@ char	*restline(char *long_line, size_t len)
 	llsize = ft_strlen(long_line);
 	buff = (char *)malloc((llsize - len) + 1);
 	if (!buff)
-		return (NULL);
-	while ((i + len) < llsize && long_line[i + len])
 	{
-		buff[i] = long_line[i + len];
-		i++;
+		free(long_line);
+		return (NULL);
 	}
-	buff[i] = '\0';\
+	while (len < llsize && long_line[len])
+	{
+		buff[i] = long_line[len];
+		i++;
+		len++;
+	}
+	buff[i] = '\0';
 	free(long_line);
 	return (buff);
 }
 
-
-char	*ft_linefill(char *long_line, size_t *len)
+char	*ft_linefill(char *long_line)
 {
 	size_t	i;
 	char	*line;
@@ -48,8 +54,7 @@ char	*ft_linefill(char *long_line, size_t *len)
 	if (!long_line)
 		return (NULL);
 	i = 0;
-	*len = ft_findnl(long_line);
-	line = (char *)malloc((*len) + 1);
+	line = (char *)malloc(ft_strlen(long_line) + 1);
 	if (!line)
 		return (NULL);
 	while (long_line[i] && long_line[i] != '\n')
@@ -68,15 +73,16 @@ char	*ft_read(int fd, char *long_line)
 	char	*buffer;
 	ssize_t	bytes_rd;
 
-	buffer = (char *)malloc(BUFFER_SIZE + 1); 
+	buffer = (char *)malloc(BUFFER_SIZE + 1);
 	if (!buffer)
 		return (NULL);
 	while (!ft_strchr(long_line, '\n'))
 	{
-		bytes_rd = read(fd, buffer, BUFFER_SIZE);\
+		bytes_rd = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_rd == -1)
 		{
 			free(buffer);
+			free(long_line);
 			return (NULL);
 		}
 		buffer[bytes_rd] = '\0';
@@ -88,7 +94,7 @@ char	*ft_read(int fd, char *long_line)
 		if (!long_line)
 			long_line = ft_strdup(buffer);
 		else
-			long_line = ft_strjoin(long_line, buffer);       
+			long_line = ft_strjoin(long_line, buffer);
 	}
 	free(buffer);
 	return (long_line);
@@ -96,16 +102,14 @@ char	*ft_read(int fd, char *long_line)
 
 char	*get_next_line(int fd)
 {
-	static char *long_line = NULL;
+	static char	*long_line = NULL;
 	char		*line;
-	size_t		len;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	long_line = ft_read(fd, long_line);
-	// printf("ll:\n%s\n-------------\n",long_line);
-	line = ft_linefill(long_line, &len);
-	long_line = restline(long_line, len);
+	line = ft_linefill(long_line);
+	long_line = restline(long_line, line);
 	return (line);
 }
 
@@ -116,11 +120,11 @@ char	*get_next_line(int fd)
 
 // int	main(void)
 // {
-// 	int fd = open("file", O_RDONLY);
+// 	int fd = open("read_error.txt", O_RDONLY);
 // 	char *line;
 // 	int i =1;
 
-// 	// atexit(leaks);
+// 	atexit(leaks);
 //  	line = get_next_line(fd);
 // 	while (line)
 // 	{
