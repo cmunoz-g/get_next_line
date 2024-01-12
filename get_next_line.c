@@ -6,7 +6,7 @@
 /*   By: cmunoz-g <cmunoz-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 16:45:38 by cmunoz-g          #+#    #+#             */
-/*   Updated: 2024/01/09 19:54:11 by cmunoz-g         ###   ########.fr       */
+/*   Updated: 2024/01/12 11:45:45 by cmunoz-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,10 @@ char	*restline(char *long_line, size_t len)
 	char 	*buff;
 	size_t	llsize;
 	size_t	i;
-	
 	i = 0;
 	if (!long_line)
 		return (NULL);
-	if (!long_line[len])
+	if (!long_line[len - 1])
 	{
 		free(long_line);
 		return (NULL);
@@ -30,9 +29,9 @@ char	*restline(char *long_line, size_t len)
 	buff = (char *)malloc((llsize - len) + 1);
 	if (!buff)
 		return (NULL);
-	while ((i + len) < llsize)
+	while ((i + len) < llsize && long_line[i + len])
 	{
-		buff[i] = long_line[i + len + 1];
+		buff[i] = long_line[i + len];
 		i++;
 	}
 	buff[i] = '\0';\
@@ -104,7 +103,7 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	long_line = ft_read(fd, long_line);
-	//printf("ll:\n%s\n-------------\n",long_line);
+	// printf("ll:\n%s\n-------------\n",long_line);
 	line = ft_linefill(long_line, &len);
 	long_line = restline(long_line, len);
 	return (line);
@@ -121,7 +120,7 @@ char	*get_next_line(int fd)
 // 	char *line;
 // 	int i =1;
 
-// 	//atexit(leaks);
+// 	// atexit(leaks);
 //  	line = get_next_line(fd);
 // 	while (line)
 // 	{
