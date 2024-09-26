@@ -21,7 +21,7 @@ The goal is to write a function that reads from a file descriptor and returns th
     cd get_next_line
     ```
 3. **Include in Your Project**:
-    ```bash
+    ```
     To use `get_next_line()`, include the `get_next_line.c`, `get_next_line_utils.c`, and `get_next_line.h` files in your project directory. Create a `main.c` file where you call the `get_next_line()` function.
     ```
 5. **Compile the Program**:
