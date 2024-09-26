@@ -20,13 +20,20 @@ The goal is to write a function that reads from a file descriptor and returns th
     ```bash
     cd get_next_line
     ```
-3. **Compile the Program**:
+3. **Include in Your Project**:
+    To use `get_next_line()`, include the `get_next_line.c`, `get_next_line_utils.c`, and `get_next_line.h` files in your project directory. Create a `main.c` file where you call the `get_next_line()` function.
+4. **Compile the Program**:
+    Compile all files together, specifying the `BUFFER_SIZE` as needed:
     ```bash
-    gcc -Wall -Werror -Wextra -D BUFFER_SIZE=42 get_next_line.c get_next_line_utils.c -o gnl
+    gcc -Wall -Werror -Wextra -D BUFFER_SIZE=42 main.c get_next_line.c get_next_line_utils.c -o my_program
     ```
     Replace `42` with the desired buffer size.
-4. **Run the Program**:
-    Use `./gnl` with a file descriptor as input to read lines one by one.
+5. **Run Your Program**:
+    Run the compiled program:
+    ```bash
+    ./my_program
+    ```
+    Make sure to provide the appropriate input (e.g., file descriptor) within your `main.c` to test the `get_next_line()` function.
 
 ## Implementation Details
 - **Static Variables**: The function uses a static variable to maintain the state between calls, allowing it to keep track of what has been read.
