@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmunoz-g <cmunoz-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: camunozg <camunozg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 16:45:38 by cmunoz-g          #+#    #+#             */
-/*   Updated: 2024/01/12 14:26:45 by cmunoz-g         ###   ########.fr       */
+/*   Updated: 2024/09/26 14:27:02 by camunozg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
+
+/**
+ * Enhanced version of get_next_line that handles multiple file descriptors.
+ * Uses an array to store the remaining lines for each file descriptor up to a
+ * defined limit (U_LIMIT).
+ * This allows simultaneous reading from different files without interference.
+ */
 
 void	auxfill(size_t len, size_t llsize, char *buff, char *long_line)
 {
@@ -115,28 +122,3 @@ char	*get_next_line(int fd)
 	long_line[fd] = restline(long_line[fd], line);
 	return (line);
 }
-
-// void	leaks(void)
-// {
-// 	system("leaks a.out");
-// }
-
-// int	main(void)
-// {
-// 	int fd = open("read_error.txt", O_RDONLY);
-// 	char *line;
-// 	int i =1;
-
-// 	atexit(leaks);
-//  	line = get_next_line(fd);
-// 	while (line)
-// 	{
-// 		printf("%d line: %s", i, line);	
-// 		free(line);
-// 		line = get_next_line(fd);
-// 		i++;
-// 	}
-// 	free(line);
-// 	close(fd);
-// 	return (0);
-// }

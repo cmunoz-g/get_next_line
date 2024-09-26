@@ -3,14 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmunoz-g <cmunoz-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: camunozg <camunozg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 16:45:38 by cmunoz-g          #+#    #+#             */
-/*   Updated: 2024/01/12 13:07:34 by cmunoz-g         ###   ########.fr       */
+/*   Updated: 2024/09/26 14:24:45 by camunozg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+/**
+ * auxfill
+ *
+ * Copies characters from the `long_line` to the `buff` buffer starting from
+ * the position `len` up to `llsize` or until the end of `long_line` is reached.
+ * The function ensures that `buff` is null-terminated at the end.
+ *
+ * @param len       Starting position in `long_line`.
+ * @param llsize    Length of the `long_line`.
+ * @param buff      Buffer to store the copied characters.
+ * @param long_line Source string from which characters are copied.
+ */
 
 void	auxfill(size_t len, size_t llsize, char *buff, char *long_line)
 {
@@ -25,6 +38,17 @@ void	auxfill(size_t len, size_t llsize, char *buff, char *long_line)
 	}
 	buff[i] = '\0';
 }
+
+/**
+ * restline
+ *
+ * Returns a new string containing the remaining part of `long_line` after
+ * the characters in `line`. Frees the original `long_line`.
+ *
+ * @param long_line Original string to be processed.
+ * @param line      Processed part of `long_line` to be removed.
+ * @return          Pointer to the remaining string or NULL if there are no remaining characters.
+ */
 
 char	*restline(char *long_line, char *line)
 {
@@ -49,6 +73,17 @@ char	*restline(char *long_line, char *line)
 	return (buff);
 }
 
+/**
+ * ft_linefill
+ *
+ * Extracts and returns a line (up to and including a newline character)
+ * from the beginning of `long_line`. Allocates memory for the new line
+ * and terminates it with a null character.
+ *
+ * @param long_line Input string to extract the line from.
+ * @return          Pointer to the newly created line or NULL on error.
+ */
+
 char	*ft_linefill(char *long_line)
 {
 	size_t	i;
@@ -70,6 +105,19 @@ char	*ft_linefill(char *long_line)
 	line[i] = '\0';
 	return (line);
 }
+
+/**
+ * ft_read
+ *
+ * Reads from the file descriptor `fd` into `buffer` until a newline is found
+ * or the end of the file is reached. Appends each read to `long_line`.
+ * If an error occurs during reading, it frees allocated memory and returns NULL.
+ *
+ * @param fd        File descriptor to read from.
+ * @param long_line Existing content to append new data.
+ * @param buffer    Buffer to store read data temporarily.
+ * @return          Pointer to the updated `long_line` or NULL on error.
+ */
 
 char	*ft_read(int fd, char *long_line, char *buffer)
 {
@@ -99,6 +147,18 @@ char	*ft_read(int fd, char *long_line, char *buffer)
 	return (long_line);
 }
 
+/**
+ * get_next_line
+ *
+ * Reads the next line from the file descriptor `fd`. Uses a static variable
+ * `long_line` to store the remainder of the previous read. Allocates a buffer
+ * for reading from the file. Calls helper functions to fill and update
+ * `long_line` and `line`.
+ *
+ * @param fd    File descriptor to read from.
+ * @return      The next line read or NULL on error or when no more lines are available.
+ */
+
 char	*get_next_line(int fd)
 {
 	static char	*long_line = NULL;
@@ -115,28 +175,3 @@ char	*get_next_line(int fd)
 	long_line = restline(long_line, line);
 	return (line);
 }
-
-// void	leaks(void)
-// {
-// 	system("leaks a.out");
-// }
-
-// int	main(void)
-// {
-// 	int fd = open("read_error.txt", O_RDONLY);
-// 	char *line;
-// 	int i =1;
-
-// 	atexit(leaks);
-//  	line = get_next_line(fd);
-// 	while (line)
-// 	{
-// 		printf("%d line: %s", i, line);	
-// 		free(line);
-// 		line = get_next_line(fd);
-// 		i++;
-// 	}
-// 	free(line);
-// 	close(fd);
-// 	return (0);
-// }

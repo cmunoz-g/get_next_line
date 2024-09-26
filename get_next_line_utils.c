@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmunoz-g <cmunoz-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: camunozg <camunozg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:12:41 by cmunoz-g          #+#    #+#             */
-/*   Updated: 2024/01/12 13:04:43 by cmunoz-g         ###   ########.fr       */
+/*   Updated: 2024/09/26 14:25:34 by camunozg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+/**
+ * Utility functions for string manipulation used in file operations.
+ * Includes implementations for string concatenation, joining, searching, 
+ * length calculation, and duplication. These functions facilitate the handling 
+ * of dynamic strings in other file processing logic.
+ */
 
 size_t	ft_strlcat(char *dest, const char *src, size_t destsize)
 {

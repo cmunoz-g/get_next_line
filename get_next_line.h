@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmunoz-g <cmunoz-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: camunozg <camunozg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:32:43 by cmunoz-g          #+#    #+#             */
-/*   Updated: 2024/01/12 13:15:27 by cmunoz-g         ###   ########.fr       */
+/*   Updated: 2024/09/26 14:20:20 by camunozg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,4 @@ size_t	ft_strlen(const char *str);
 
 char	*get_next_line(int fd);
 
-#endif //GET_NEXT_LINE_H
+#endif
